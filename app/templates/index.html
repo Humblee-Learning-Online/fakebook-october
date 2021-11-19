@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h3>Home | Welcome, {{ first_name }} {{ last_name }} ({{ email }})</h3>
+        <hr>
+
+        <ul class="list-group">
+            {% for p in posts %}
+            <li class="list-group-item">{{ p.body }}</li>
+            {% endfor %}
+        </ul>
+
+
+    </div>
+
+{% endblock content %}
