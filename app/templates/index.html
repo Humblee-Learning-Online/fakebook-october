@@ -2,13 +2,41 @@
 
 {% block content %}
 
-    <div class="container">
-        <h3>Home | Welcome, {{ first_name }} {{ last_name }} ({{ email }})</h3>
+    <div>
+        <h3>
+            Home
+            {% if current_user.is_authenticated %}
+                | Welcome, {{ current_user.first_name }} {{ current_user.last_name }} ({{ current_user.email }})
+            {% endif %}
+        </h3>
+        <hr>
+
+        <form action="{{ url_for('create_new_post') }}" method="post">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-10">
+                        <input type="text" name="user_status" id="" class="form-control" placeholder="Type your status" aria-describedby="helpId" />
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" value="Post" class="btn btn-info btn-block" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <hr>
 
         <ul class="list-group">
             {% for p in posts %}
-            <li class="list-group-item">{{ p.body }}</li>
+                <li class="list-group-item">
+                    <p>{{ p.body }}</p>
+                    <p>
+                        <cite>&mdash; {{ p.user.email }}</cite>
+                        <span class="float-right">
+                            <small>{{ moment(p.date_created).fromNow() }}</small>
+                        </span>
+                    </p>
+                </li>
             {% endfor %}
         </ul>
 
