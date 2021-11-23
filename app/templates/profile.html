@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div>
+        <h3>Profile</h3>
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <img class="img-fluid" src="https://via.placeholder.com/500/1000" alt="Profile Image">
+            </div>
+            <div class="col-9">
+                <form action="{{ url_for('main.profile') }}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" value="{{ current_user.first_name }}" class="form-control" name="f_name" placeholder="First Name">
+                            </div>
+                            <div class="col-6">
+                                <input type="text" value="{{ current_user.last_name }}" class="form-control" name="l_name" placeholder="Last Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" placeholder="Image" name="image" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" value="{{ current_user.email }}" placeholder="Email Address" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" name="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Confirm Password" name="confirm_password" class="form-control">
+                    </div>
+                    <input type="submit" value="Update Profile" class="btn btn-info btn-block" />
+                </form>
+            </div>
+        </div>
+
+        <hr />
+        <ul class="list-group">
+            <li class="list-group-item">
+                <p><a href="#"></a></p>
+                <p>
+                    <cite>&mdash; </cite>
+                    <span class="float-right">
+                        <small></small>
+                    </span>
+                </p>
+            </li>
+        </ul>
+
+    </div>
+
+{% endblock content %}

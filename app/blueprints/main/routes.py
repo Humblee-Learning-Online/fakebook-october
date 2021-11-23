@@ -25,6 +25,36 @@ def about():
 def contact():
     return render_template('contact.html')
 
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    u = User.query.get(current_user.get_id())
+
+    if request.method == 'POST':
+        f_name = request.form.get('f_name')
+        l_name = request.form.get('l_name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        if not password and not confirm_password:
+            u.first_name = f_name
+            u.last_name = l_name
+            u.email = email
+            db.session.commit()
+            flash('You have updated your information successfully', 'info')
+            return redirect(request.referrer)
+        else:
+            if password == confirm_password:
+                u.password = password
+                u.generate_password(u.password)
+                db.session.commit()
+                flash('You have updated your information successfully', 'info')
+                return redirect(request.referrer)
+            else:
+                flash("Your passwords don't match. Try again.", 'warning')
+                return redirect(request.referrer)
+    return render_template('profile.html')
+
 @app.route('/new_post', methods=['POST'])
 def create_new_post():
     status = request.form.get('user_status')
