@@ -11,7 +11,7 @@
         </h3>
         <hr>
 
-        <form action="{{ url_for('create_new_post') }}" method="post">
+        <form action="{{ url_for('main.create_new_post') }}" method="post">
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-10">
@@ -29,7 +29,7 @@
         <ul class="list-group">
             {% for p in posts %}
                 <li class="list-group-item">
-                    <p>{{ p.body }}</p>
+                    <p><a href="{{ url_for('blog.post', id=p.id) }}">{{ p.body }}</a></p>
                     <p>
                         <cite>&mdash; {{ p.user.email }}</cite>
                         <span class="float-right">
