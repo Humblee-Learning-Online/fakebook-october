@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div>
+    <h3>Shop</h3>
+    <hr>
+
+        <div class="card-deck row">
+            {% for p in products %}
+                <div class="col-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ p.image }}" alt="{{ p.name }}">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ p.name }}</h4>
+                            <p class="card-text">{{ p.description|truncate(20, True) }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('shop.add_product', id=p.id) }}" class="btn btn-success btn-block">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+</div>
+
+{% endblock content %}

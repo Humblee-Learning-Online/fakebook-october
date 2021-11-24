@@ -5,19 +5,30 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_moment import Moment
 
-app = Flask(__name__)
-app.config.from_object(Config)
+db = SQLAlchemy()
+migrate = Migrate()
+login_manager = LoginManager()
+moment = Moment()
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-login_manager = LoginManager(app)
-moment = Moment(app)
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
-from app.blueprints.main import bp as main
-app.register_blueprint(main)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
+    moment.init_app(app)
 
-from app.blueprints.auth import bp as auth
-app.register_blueprint(auth)
+    from app.blueprints.main import bp as main
+    app.register_blueprint(main)
 
-from app.blueprints.blog import bp as blog
-app.register_blueprint(blog)
+    from app.blueprints.auth import bp as auth
+    app.register_blueprint(auth)
+
+    from app.blueprints.blog import bp as blog
+    app.register_blueprint(blog)
+
+    from app.blueprints.shop import bp as shop
+    app.register_blueprint(shop)
+
+    return app
