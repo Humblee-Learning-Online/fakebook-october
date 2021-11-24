@@ -22,7 +22,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                     <a class="dropdown-item" href="{{ url_for('shop.index') }}">Products</a>
-                    <a class="dropdown-item" href="#">Cart</a>
+                    <a class="dropdown-item" href="{{ url_for('shop.cart') }}">Cart</a>
                 </div>
             </li>
             {% if not current_user.is_authenticated %}

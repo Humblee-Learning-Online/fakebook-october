@@ -15,3 +15,5 @@ class Config:
         SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI').replace('postgres', 'postgresql')
     SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')
     SECRET_KEY = os.getenv('SECRET_KEY')
+    STRIPE_TEST_PK = os.getenv('STRIPE_TEST_PK')
+    STRIPE_TEST_SK = os.getenv('STRIPE_TEST_SK')

@@ -28,7 +28,9 @@ def create_app(config_class=Config):
     from app.blueprints.blog import bp as blog
     app.register_blueprint(blog)
 
-    from app.blueprints.shop import bp as shop
-    app.register_blueprint(shop)
+
+    with app.app_context():
+        from app.blueprints.shop import bp as shop
+        app.register_blueprint(shop)
 
     return app
