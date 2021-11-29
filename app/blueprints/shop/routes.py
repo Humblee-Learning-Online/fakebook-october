@@ -65,9 +65,10 @@ def create_checkout_session():
         checkout_session = stripe.checkout.Session.create(
             line_items=items,
             mode='payment',
-            success_url=    ',
-            cancel_url='http://localhost:5000/',
+            success_url=url_for('shop.index'),
+            cancel_url=url_for('shop.index'),
         )
     except Exception as error:
         return str(error)
+        flash('Thank you for your payment')
     return redirect(checkout_session.url, code=303)
