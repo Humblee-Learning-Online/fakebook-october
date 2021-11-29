@@ -8,6 +8,8 @@ from flask_moment import Moment
 db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
+# login_manager.login_message = 'You do not have access to this route'
+
 moment = Moment()
 
 def create_app(config_class=Config):
@@ -28,9 +30,12 @@ def create_app(config_class=Config):
     from app.blueprints.blog import bp as blog
     app.register_blueprint(blog)
 
+    from app.blueprints.api import bp as api
+    app.register_blueprint(api)
 
     with app.app_context():
         from app.blueprints.shop import bp as shop
         app.register_blueprint(shop)
+        
 
     return app
