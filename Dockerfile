@@ -1,12 +1,12 @@
-FROM python:3.9-buster
+FROM python:3.9
 
 WORKDIR /home/fakebook
 
 COPY requirements.txt requirements.txt
 RUN python -m venv virtualenv
-RUN virtualenv/bin/pip install --upgrade pip
-RUN virtualenv/bin/pip install -r requirements.txt
-RUN virtualenv/bin/pip install gunicorn
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+RUN pip install gunicorn
 
 COPY app app
 COPY migrations migrations
