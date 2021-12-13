@@ -4,7 +4,7 @@ from app import db
 from flask import request, render_template, url_for, redirect, flash
 from datetime import datetime
 from app.blueprints.auth.models import User
-from app.blueprints.main.models import Post
+from app.blueprints.blog.models import Post
 from flask_login import login_user, logout_user, current_user
 
 @app.route('/<id>')

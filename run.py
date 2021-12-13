@@ -1,7 +1,7 @@
 from app import cli, create_app, db
 from app.blueprints.shop.models import Product
 from app.blueprints.auth.models import User
-from app.blueprints.main.models import Post
+from app.blueprints.blog.models import Post
 
 app = create_app()
 cli.register(app)

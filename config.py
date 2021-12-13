@@ -17,3 +17,6 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
     STRIPE_TEST_PK = os.getenv('STRIPE_TEST_PK')
     STRIPE_TEST_SK = os.getenv('STRIPE_TEST_SK')
+    CORS_HEADERS = os.getenv('CORS_HEADERS')
+    ROOL_URL = os.getenv('ROOL_URL')
+    FRONTEND_URL = os.getenv('FRONTEND_URL')

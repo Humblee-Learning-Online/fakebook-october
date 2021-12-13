@@ -1,4 +1,4 @@
-from app.blueprints.main.models import Post
+from app.blueprints.blog.models import Post
 from .import bp as posts
 from flask import json, jsonify, request
 from .auth import token_auth

@@ -3,7 +3,7 @@ import unittest
 from app import create_app, db
 from flask import current_app as app
 from app.blueprints.auth.models import User
-from app.blueprints.main.models import Post
+from app.blueprints.blog.models import Post
 from config import Config
 
 class TestConfig(Config):

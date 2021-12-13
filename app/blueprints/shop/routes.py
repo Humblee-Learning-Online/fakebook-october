@@ -2,7 +2,7 @@ from flask.templating import render_template
 from werkzeug.utils import redirect
 from .import bp as shop
 from .models import Product, Cart
-from flask import redirect, url_for, flash, current_app as app
+from flask import redirect, url_for, flash, current_app as app, jsonify, request
 import stripe
 from flask_login import current_user
 from app import db
@@ -51,7 +51,7 @@ def cart():
     return render_template('shop/cart.html', **context)
 
 @shop.route('/checkout', methods=['POST'])
-def create_checkout_session():
+def create_flask_checkout_session():
     stripe.api_key = app.config.get('STRIPE_TEST_SK')
     items = []
     for i in Cart.query.filter_by(user_id=current_user.get_id()).all():
@@ -71,3 +71,25 @@ def create_checkout_session():
     except Exception as error:
         return str(error)
     return redirect(checkout_session.url, code=303)
+
+@shop.route('/create-checkout-session', methods=['POST'])
+def create_frontend_checkout_session():
+    """
+    [POST] /shop/create-checkout-session
+    """
+    stripe.api_key = app.config.get('STRIPE_TEST_SK')
+    try:
+        # print('route works')
+        cart = request.get_json().get('cartData')
+        # print(cart)
+        line_items = [{'price': i['price_id'], 'quantity': i['quantity']} for i in cart['data']]
+
+        checkout_session = stripe.checkout.Session.create(
+            line_items=line_items,
+            mode='payment',
+            success_url=app.config.get('FRONTEND_URL') + '/shop/checkout?success=true',
+            cancel_url=app.config.get('FRONTEND_URL') + '/shop/checkout?success=false',
+        )
+    except Exception as e:
+        return str(e)
+    return jsonify({'checkout_session': checkout_session.url})
